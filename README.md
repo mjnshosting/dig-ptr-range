@@ -37,7 +37,7 @@ Start - Starting range of the fourth octet with no period and a space between th
 End - Last in range of the fourth octet with no period and a space between the "Start" value.
 
 **It should look something like this**
-```perl
+```bash
 user@server:~$ ./dig-ptr-range.sh 4.2.2 10 15
 
 
