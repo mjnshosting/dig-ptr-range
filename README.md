@@ -22,8 +22,11 @@ chmod +x dig-ptr-range.sh
 ## Run Example: 
 
 YES - ./dig-ptr-range.sh 4.2.2 10 256
+
 YES - ./dig-ptr-range.sh 4.2.2 255 256
+
 NO - ./dig-ptr-range.sh 4.2.2. .10 256
+
 NO - ./dig-ptr-range.sh 4.2.2 .255 .256
 
 ## Breakdown
