@@ -2,86 +2,38 @@
 Dig a range of PTR records  instead of one 
 Give the three parameters of base of IP which is the first 3 octets and the start and end in the last octet. 
 
-Example: dig-ptr-range.sh 4.2.2 1 256
+Example: ./dig-ptr-range.sh 4.2.2 1 256
 
 ## Special Thanks to:
 Jose P.
 
+## Story/Purpose/Objective:
 Customer contacts the NOC and we need to test and provide proof that our work after a DNS PTR record change has been completed. This is ok for a small block but what about an entire /24. This is quick and can be reused so you dont have to edit enter repeat the command. No lie it could be a one liner as well but this is cleaner and i can add to it later. 
 
-## Story/Purpose/Objective:
-Tasked with tracing IP blocks across 100+ devices to note if they were free or used by someone. I looked at the task
-and said, "You gotta be fucking kidding me! Im to dam PRETTY for UGLY work!" So It took me a week to develop and test the following 
-scripts along with my coworkers who were doing the process manually. It grew from just 5 devices to scanning all devices across the
-network which stretches from the east to the west coast. 
+## Requirements:
 
-It is four files and while testing created 750MB+ of files that consisted of route tables. Its done in bash and only requires clogin with a proper .cloginrc file which is included in the rancid package and needs to be mofified to suit your environment. So if you have the non minimal version of your OS this should not require anything more than 
-rancid. 
+Install the "dig" or its parent package from your OS's repo. This script was written on and tested on a Ubuntu system.
 
-Split into four files: 
+## Simple Instructions (non git clone):
+nano dig-ptr-range.sh - copy and paste the code from the file in this repo. Then press ctrl+x then ‘y’ then ‘Enter’. Finally make the file executable 
+```bash
+chmod +x dig-ptr-range.sh
+```
+## Run Example: 
 
-device-list - each line contains the name or ip of a network device you want clogin to access and dump the route table from.
+YES - ./dig-ptr-range.sh 4.2.2 10 256
+YES - ./dig-ptr-range.sh 4.2.2 255 256
+NO - ./dig-ptr-range.sh 4.2.2. .10 256
+NO - ./dig-ptr-range.sh 4.2.2 .255 .256
 
-collect-route.sh - collects the route table for all devices listed in device-list. There are plans for this to do more later. 
+## Breakdown
+./dig-ptr-range.sh base start end
 
-free-ip.sh - takes in your /16 block range (examples below) and uses the collected route data and extracts information pertaining 
-			 to your specific block. 
+Base - First three octets with no trailing period before the last octect
+Start - Starting range of the fourth octet with no period and a space between the "Base" and the "End" values.
+End - Last in range of the fourth octet with no period and a space between the "Start" value.
 
-.cloginrc - Not something I created but it is required. check the example that I included. Google for further documentation. 
-
-# Requirements:
-
-Install the "dig" or its parent package from your OS's repo. This script was written on Fedora 22 system but was also tested on a Ubuntu system.
-
-.cloginrc needs to be in directory of script.
-
-All devices must be placed in the "device-list" on their own line. 
-
-#Instructions:
-nano free-ip.sh
-
-                copy and paste the code contained the attached zip file "free-ip.txt". Then press ctrl+x then ‘y’ then ‘Enter’
-
-nano collect-route.sh
-
-                copy and paste the code contained the attached zip file "collect-route.txt". Then press ctrl+x then ‘y’ then ‘Enter’
-
-chmod +x free-ip.sh collect-route.sh
-
-                make them executable 
-
-nano device-list
-
-		copy and paste the code contained the attached zip file "host_net-devices.txt". Then press ctrl+x then ‘y’ then ‘Enter’
-
-nohup ./collect-route.sh &
-
-nohup ./free-ip.sh <value of first octet> <value of second octet> <value of start of range third octet> <value of start of range third octet> &
-		
-		Some files will be created but the important one is in the results folder named <oct1>-<oct2>-<oct3_start>-to-<oct3_end>-free-ip-report.txt use nano to look at it and 
-		copy and paste the output to a notepad file for you to fill in the spreadsheet or documentation.         
-
-nano results/<oct1>-<oct2>-<oct3_start>-to-<oct3_end>-free-ip-report.txt
-
-#Run Example: 
-
-nohup ./collect-route.sh & 
-
-		I like this program to be ran in the background as it took an nearly two hours for 105 devices and created 753MB of total data that will be used later. 
-
-tail -f nohup.out
-			
-		**When using nohup tail the nohup.out file for an update to see when the script is finished or just down use nohup with the & to run this in the foreground. Not suggested because this can take hours and will not finish where it left off. **
-
-nohup ./free-ip.sh 192 168 0 26 & 
-		
-		This should be ran in the background as well. This will search through the collected *-route.txt files and finally create a sorted -report.txt file under the results folder.
-
-tail -f nohup.out
-
-cat result/192-168-0-to-26-free-ip-report.txt
-
-		It should look something like this. 
+# It should look something like this. 
 
 On device FastEthernet0/7 route C 192.168.21.0/27 is directly connected belongs to customer Cust007:Bond-Networks-London:DIA
 
