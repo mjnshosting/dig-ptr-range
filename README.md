@@ -1,6 +1,5 @@
 # dig-ptr-range
-Dig a range of PTR records  instead of one 
-Give the three parameters of base of IP which is the first 3 octets and the start and end in the last octet. 
+Dig a range of PTR records instead of one at a time. Give the three parameters of base of IP which is the first 3 octets and the start and end in the last octet. 
 
 Example: ./dig-ptr-range.sh 4.2.2 1 256
 
