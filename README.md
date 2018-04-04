@@ -1,22 +1,15 @@
 # dig-ptr-range
 Dig a range of PTR records  instead of one 
+Give the three parameters of base of IP which is the first 3 octets and the start and end in the last octet. 
 
+Example: dig-ptr-range.sh 4.2.2 1 256
 
+## Special Thanks to:
+Jose P.
 
+Customer contacts the NOC and we need to test and provide proof that our work after a DNS PTR record change has been completed. This is ok for a small block but what about an entire /24. This is quick and can be reused so you dont have to edit enter repeat the command. No lie it could be a one liner as well but this is cleaner and i can add to it later. 
 
-
-
-
-
-# ip-block-search
-Collect route tables from Cisco devices then search the collected data for desired block ranges.
-
-##Special Thanks to:
-Andres R.
-
-Jared J.
-
-##Story/Purpose/Objective:
+## Story/Purpose/Objective:
 Tasked with tracing IP blocks across 100+ devices to note if they were free or used by someone. I looked at the task
 and said, "You gotta be fucking kidding me! Im to dam PRETTY for UGLY work!" So It took me a week to develop and test the following 
 scripts along with my coworkers who were doing the process manually. It grew from just 5 devices to scanning all devices across the
@@ -36,9 +29,9 @@ free-ip.sh - takes in your /16 block range (examples below) and uses the collect
 
 .cloginrc - Not something I created but it is required. check the example that I included. Google for further documentation. 
 
-#Requirements:
+# Requirements:
 
-Install the "rancid" package from your OS's repo. This script was written on Fedora 22 system but was also tested on a Ubuntu system.
+Install the "dig" or its parent package from your OS's repo. This script was written on Fedora 22 system but was also tested on a Ubuntu system.
 
 .cloginrc needs to be in directory of script.
 
