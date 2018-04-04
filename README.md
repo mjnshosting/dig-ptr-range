@@ -37,7 +37,7 @@ Start - Starting range of the fourth octet with no period and a space between th
 End - Last in range of the fourth octet with no period and a space between the "Start" value.
 
 **It should look something like this**
-```
+```javascript
 user@server:~$ ./dig-ptr-range.sh 4.2.2 10 15
 
 
@@ -54,7 +54,7 @@ START: 00:38:01.918584666
 
 STOP: 00:38:02.230145896
 ```
-# Explanation:
+## Explanation:
 
 Its pretty easy to read and use the given output. Some things do need to be pointed out. 
 
