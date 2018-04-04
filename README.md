@@ -16,7 +16,7 @@ Install the "dig" or its parent package from your OS's repo. This script was wri
 
 ## Simple Instructions (non git clone):
 nano dig-ptr-range.sh - copy and paste the code from the file in this repo. Then press ctrl+x then ‘y’ then ‘Enter’. Finally make the file executable 
-```bash
+```sh
 chmod +x dig-ptr-range.sh
 ```
 ## Run Example: 
@@ -36,8 +36,8 @@ Base - First three octets with no trailing period before the last octect
 Start - Starting range of the fourth octet with no period and a space between the "Base" and the "End" values.
 End - Last in range of the fourth octet with no period and a space between the "Start" value.
 
-# It should look something like this. 
-
+**It should look something like this**
+```
 user@server:~$ ./dig-ptr-range.sh 4.2.2 10 15
 
 
@@ -53,7 +53,7 @@ START: 00:38:01.918584666
 
 
 STOP: 00:38:02.230145896
-
+```
 # Explanation:
 
 Its pretty easy to read and use the given output. Some things do need to be pointed out. 
