@@ -25,7 +25,7 @@ YES - ./dig-ptr-range.sh 4.2.2 10 256
 
 YES - ./dig-ptr-range.sh 4.2.2 255 256
 
-NO - ./dig-ptr-range.sh 4.2.2. .10 256
+NO - ./dig-ptr-range.sh 4.2.2. 10 256
 
 NO - ./dig-ptr-range.sh 4.2.2 .255 .256
 
@@ -38,32 +38,26 @@ End - Last in range of the fourth octet with no period and a space between the "
 
 # It should look something like this. 
 
-On device FastEthernet0/7 route C 192.168.21.0/27 is directly connected belongs to customer Cust007:Bond-Networks-London:DIA
+user@server:~$ ./dig-ptr-range.sh 4.2.2 10 15
 
-On 192.168.61.1 Vlan07 route C 192.168.21.192/28 is directly connected belongs to customer Cust007-T1
 
-On r0.ga.mjnshosting.com GigabitEthernet2/1 route C 192.168.38.0/24 is directly connected belongs to customer Cust07-29-16:Jason-Bourne-Services
+START: 00:38:01.918584666
 
-On edge-r0.colo1.ga.mjnshosting.com !!Please Investigate Manually!! route S 192.168.21.224/27 [1/0] via 192.168.32.20 belongs to customer !!Please Investigate Manually!!
 
-On coredevice1000 Null0 route S 192.168.1.31/32 is directly connected belongs to customer
+4.2.2.10 PTR
+4.2.2.11 PTR
+4.2.2.12 PTR test-record.Level3.net.
+4.2.2.13 PTR
+4.2.2.14 PTR
+4.2.2.15 PTR
 
-On 11.20.85.30 Null0 route S 192.168.26.4/32 is directly connected belongs to customer
 
-#Explanation:
+STOP: 00:38:02.230145896
 
-##Output Structure:
-
-On <device name from device-list> <interface on device> route <route from device that contains our desired blick> belongs to customer <customer/interface description for interface on device>
+# Explanation:
 
 Its pretty easy to read and use the given output. Some things do need to be pointed out. 
 
-	1. Only Connected (C), Static (S), Local (L) routes are shown. We only need to see where blocks are routed so edge devices are good but sometimes all devices may be best for backbone devices that have 10GE customers. 
-
-	2. If there is no interface as you can see with the Static (S) route the script will output "!!Please Investigate Manually!!" in place of the interface name since one is not given. 
-
-		On edge-r0.colo1.ga.mjnshosting.com !!Please Investigate Manually!! route S 192.168.21.224/27 [1/0] via 192.168.32.20 belongs to customer !!Please Investigate Manually!!
-
-	3. If there is no output for "sh int <interface> | i escription" on the deivce then nothing will be printed. You will see this on Null0 interfaces like the example shown below. 
-
-		On 11.20.85.30 Null0 route S 192.168.26.4/32 is directly connected belongs to customer
+	1. There is no prompting for each parameter to be entered. 
+	2. No input sanitization. I might change or make it more tolerant...probably not. 
+	3. This README took longer to write than this script but I believe some sort of manual is important. 
